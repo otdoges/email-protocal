@@ -21,7 +21,7 @@ export interface AuthSession {
 }
 
 export class AuthService {
-  private static readonly JWT_SECRET = process.env.JWT_SECRET || 'secure-secret-key';
+  private static readonly JWT_SECRET = process.env.BETTER_AUTH_SECRET || 'secure-secret-key';
   private static readonly ACCESS_TOKEN_EXPIRY = '15m';
   private static readonly REFRESH_TOKEN_EXPIRY = '7d';
   private static readonly MAX_LOGIN_ATTEMPTS = 5;

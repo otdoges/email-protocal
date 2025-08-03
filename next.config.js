@@ -12,7 +12,7 @@ const nextConfig = {
   },
   env: {
     ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
-    JWT_SECRET: process.env.JWT_SECRET,
+    BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
     DATABASE_URL: process.env.DATABASE_URL
   },
   headers: async () => {

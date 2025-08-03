@@ -75,7 +75,7 @@ This is a **defensive security project** built around cryptographic primitives:
 
 ### Environment Variables
 Required for development and production:
-- `JWT_SECRET` - 256-bit secret for JWT signing
+- `BETTER_AUTH_SECRET` - 256-bit secret for better-auth and JWT signing
 - `ENCRYPTION_KEY` - 32-byte hex key for storage encryption
 
 ### TypeScript Paths

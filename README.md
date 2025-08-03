@@ -36,8 +36,10 @@ cp .env.example .env.local
 ```
 
 Edit `.env.local` and set:
-- `JWT_SECRET`: 256-bit random key
+- `BETTER_AUTH_SECRET`: 256-bit random key for better-auth
 - `ENCRYPTION_KEY`: 32-byte hex key for storage encryption
+- `DATABASE_URL`: Your database connection string
+- `BETTER_AUTH_URL`: Your application URL (http://localhost:3000 for development)
 
 ### 3. Development
 
@@ -74,17 +76,21 @@ npm start
 
 3. **Set Environment Variables**
    ```bash
-   vercel env add JWT_SECRET
+   vercel env add BETTER_AUTH_SECRET
    vercel env add ENCRYPTION_KEY
+   vercel env add DATABASE_URL
    ```
 
 ### Environment Variables (Vercel)
 
 Set these in your Vercel project settings:
 
-- `JWT_SECRET`: Your JWT signing key (256-bit)
-- `ENCRYPTION_KEY`: Storage encryption key (32-byte hex)
+- `BETTER_AUTH_SECRET`: Your better-auth signing key (256-bit)
+- `ENCRYPTION_KEY`: Storage encryption key (32-byte hex)  
+- `DATABASE_URL`: Your database connection string
+- `BETTER_AUTH_URL`: Your deployed URL
 - `NEXT_PUBLIC_API_URL`: Your deployed URL
+- `NEXT_PUBLIC_APP_URL`: Your deployed URL
 
 ## Protocol Specification
 

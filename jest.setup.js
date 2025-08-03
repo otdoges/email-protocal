@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 
 // Mock environment variables
-process.env.JWT_SECRET = 'test-jwt-secret-key-for-testing-purposes-only-32-bytes'
+process.env.BETTER_AUTH_SECRET = 'test-jwt-secret-key-for-testing-purposes-only-32-bytes'
 process.env.ENCRYPTION_KEY = '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
 
 // Mock WebSocket

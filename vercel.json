@@ -33,7 +33,7 @@
   ],
   "env": {
     "ENCRYPTION_KEY": "@encryption_key",
-    "JWT_SECRET": "@jwt_secret",
+    "BETTER_AUTH_SECRET": "@better_auth_secret",
     "DATABASE_URL": "@database_url"
   }
 }
