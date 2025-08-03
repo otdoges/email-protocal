@@ -13,7 +13,8 @@ const nextConfig = {
   env: {
     ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
-    DATABASE_URL: process.env.DATABASE_URL
+    DATABASE_URL: process.env.DATABASE_URL,
+    LUMINAWEB_DOMAIN: process.env.LUMINAWEB_DOMAIN
   },
   headers: async () => {
     return [

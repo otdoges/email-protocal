@@ -34,6 +34,7 @@
   "env": {
     "ENCRYPTION_KEY": "@encryption_key",
     "BETTER_AUTH_SECRET": "@better_auth_secret",
-    "DATABASE_URL": "@database_url"
+    "DATABASE_URL": "@database_url",
+    "LUMINAWEB_DOMAIN": "@luminaweb_domain"
   }
 }

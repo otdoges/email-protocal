@@ -21,6 +21,9 @@ ENCRYPTION_KEY="your-32-byte-encryption-key-in-hex"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 NEXT_PUBLIC_API_URL="http://localhost:3000"
 
+# LuminaWeb Domain Configuration
+LUMINAWEB_DOMAIN="luminaweb.app"
+
 # Development Environment
 NODE_ENV="development"
 ```
@@ -54,16 +57,61 @@ NODE_ENV="development"
 - **Development**: `http://localhost:3000`
 - **Production**: Your deployed domain
 
+### `LUMINAWEB_DOMAIN`
+- **Purpose**: Domain used for generating user email addresses
+- **Development**: `luminaweb.app`
+- **Production**: `luminaweb.app`
+
 ## Quick Setup
 
-1. Copy this template to `.env.local`:
+### Development Template
+Create `.env.local` with these values for development:
 ```bash
-cp ENV_VARIABLES.md .env.local
+# Database Configuration
+DATABASE_URL="file:./luminaweb.db"
+
+# Authentication (Better Auth)
+BETTER_AUTH_SECRET="your-256-bit-better-auth-secret-key"
+BETTER_AUTH_URL="http://localhost:3000"
+
+# Encryption
+ENCRYPTION_KEY="your-32-byte-encryption-key-in-hex"
+
+# Application URLs
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+NEXT_PUBLIC_API_URL="http://localhost:3000"
+
+# LuminaWeb Domain Configuration
+LUMINAWEB_DOMAIN="luminaweb.app"
+
+# Development Environment
+NODE_ENV="development"
 ```
 
-2. Edit `.env.local` and replace the placeholder values with actual values
+### Production Template (for luminaweb.app)
+```bash
+# Database Configuration
+DATABASE_URL="your-production-database-connection-string"
 
-3. Generate secure keys:
+# Authentication (Better Auth)
+BETTER_AUTH_SECRET="your-256-bit-better-auth-secret-key"
+BETTER_AUTH_URL="https://luminaweb.app"
+
+# Encryption
+ENCRYPTION_KEY="your-32-byte-encryption-key-in-hex"
+
+# Application URLs
+NEXT_PUBLIC_APP_URL="https://luminaweb.app"
+NEXT_PUBLIC_API_URL="https://luminaweb.app"
+
+# LuminaWeb Domain Configuration
+LUMINAWEB_DOMAIN="luminaweb.app"
+
+# Production Environment
+NODE_ENV="production"
+```
+
+### Generate Secure Keys
 ```bash
 # Generate BETTER_AUTH_SECRET
 openssl rand -hex 32
@@ -81,6 +129,7 @@ For Vercel deployment, set these environment variables in your project settings:
 - `BETTER_AUTH_URL`
 - `NEXT_PUBLIC_API_URL`
 - `NEXT_PUBLIC_APP_URL`
+- `LUMINAWEB_DOMAIN`
 
 ## Security Notes
 

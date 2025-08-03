@@ -4,15 +4,29 @@ import { useState } from 'react';
 import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import { LuminaWebClient } from '@/lib/client';
+import { EmailDomainService } from '@/lib/email-domain';
 import Link from 'next/link';
 
 export function BetterAuthLoginForm() {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
+  const [generatedEmail, setGeneratedEmail] = useState('');
   const router = useRouter();
+
+  // Generate preview email when username changes
+  const handleUsernameChange = (value: string) => {
+    setUsername(value);
+    if (value && isSignUp) {
+      const previewEmail = EmailDomainService.generateEmail(value);
+      setGeneratedEmail(previewEmail);
+    } else {
+      setGeneratedEmail('');
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,13 +35,30 @@ export function BetterAuthLoginForm() {
 
     try {
       if (isSignUp) {
+        // Validate username
+        if (!username.trim()) {
+          setError('Username is required for registration');
+          setLoading(false);
+          return;
+        }
+
+        const usernameValidation = EmailDomainService.validateUsername(username);
+        if (!usernameValidation.isValid) {
+          setError(usernameValidation.errors[0]);
+          setLoading(false);
+          return;
+        }
+
         // Use LuminaWeb protocol for signup to integrate with email service
         const luminaClient = new LuminaWebClient({
           baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
           enableEncryption: true
         });
 
-        const result = await luminaClient.register(email, password);
+        // Generate the LuminaWeb email
+        const luminaWebEmail = EmailDomainService.generateEmail(username);
+        
+        const result = await luminaClient.register(luminaWebEmail, password);
 
         if (result.success) {
           router.push('/dashboard');
@@ -92,22 +123,49 @@ export function BetterAuthLoginForm() {
         {/* Sign-in Form */}
         <div className="bg-white py-8 px-6 shadow-xl rounded-xl border border-gray-100">
           <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                Email address
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value || '')}
-                className="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition-colors duration-200"
-                placeholder="Enter your email"
-              />
-            </div>
+            {isSignUp ? (
+              <div>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                  Choose your username
+                </label>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
+                  required
+                  value={username}
+                  onChange={(e) => handleUsernameChange(e.target.value || '')}
+                  className="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition-colors duration-200"
+                  placeholder="Enter your desired username"
+                />
+                {generatedEmail && (
+                  <div className="mt-2 text-sm text-gray-600">
+                    Your LuminaWeb email will be: <span className="font-medium text-blue-600">{generatedEmail}</span>
+                  </div>
+                )}
+                <div className="mt-1 text-xs text-gray-500">
+                  Username must be 3-20 characters, contain only letters, numbers, dots, underscores, and hyphens. Your email will be username@luminaweb.app
+                </div>
+              </div>
+            ) : (
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  Email address
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value || '')}
+                  className="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition-colors duration-200"
+                  placeholder="Enter your LuminaWeb email or external email"
+                />
+              </div>
+            )}
             
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
@@ -136,7 +194,7 @@ export function BetterAuthLoginForm() {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm text-blue-700">
-                      By signing up, you'll get access to our ultra-secure LuminaWeb Protocol with end-to-end encryption, perfect forward secrecy, and zero-knowledge architecture.
+                      You'll get a secure @luminaweb.app email address with ultra-secure LuminaWeb Protocol featuring end-to-end encryption, perfect forward secrecy, and zero-knowledge architecture.
                     </p>
                   </div>
                 </div>

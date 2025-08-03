@@ -79,6 +79,7 @@ npm start
    vercel env add BETTER_AUTH_SECRET
    vercel env add ENCRYPTION_KEY
    vercel env add DATABASE_URL
+   vercel env add LUMINAWEB_DOMAIN
    ```
 
 ### Environment Variables (Vercel)
@@ -88,9 +89,10 @@ Set these in your Vercel project settings:
 - `BETTER_AUTH_SECRET`: Your better-auth signing key (256-bit)
 - `ENCRYPTION_KEY`: Storage encryption key (32-byte hex)  
 - `DATABASE_URL`: Your database connection string
-- `BETTER_AUTH_URL`: Your deployed URL
-- `NEXT_PUBLIC_API_URL`: Your deployed URL
-- `NEXT_PUBLIC_APP_URL`: Your deployed URL
+- `BETTER_AUTH_URL`: Your deployed URL (https://luminaweb.app)
+- `NEXT_PUBLIC_API_URL`: Your deployed URL (https://luminaweb.app)
+- `NEXT_PUBLIC_APP_URL`: Your deployed URL (https://luminaweb.app)
+- `LUMINAWEB_DOMAIN`: Domain for user emails (luminaweb.app)
 
 ## Protocol Specification
 
@@ -213,7 +215,7 @@ MIT License - see LICENSE file
 
 ## Security Disclosure
 
-Report security vulnerabilities to: security@yourdomain.com
+Report security vulnerabilities to: security@luminaweb.app
 
 ## Roadmap
 
