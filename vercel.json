@@ -1,13 +1,4 @@
 {
-  "framework": "nextjs",
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next",
-  "functions": {
-    "pages/api/**/*.ts": {
-      "runtime": "nodejs18.x",
-      "maxDuration": 30
-    }
-  },
   "headers": [
     {
       "source": "/api/(.*)",
@@ -30,11 +21,5 @@
         }
       ]
     }
-  ],
-  "env": {
-    "ENCRYPTION_KEY": "@encryption_key",
-    "BETTER_AUTH_SECRET": "@better_auth_secret",
-    "DATABASE_URL": "@database_url",
-    "LUMINAWEB_DOMAIN": "@luminaweb_domain"
-  }
+  ]
 }

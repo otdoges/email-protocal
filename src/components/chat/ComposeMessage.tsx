@@ -89,7 +89,7 @@ export default function ComposeMessage({
               className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                 to && !validateEmail(to) ? 'border-red-300' : 'border-gray-300'
               }`}
-              placeholder="recipient@luminaweb.app"
+              placeholder="recipient&luminaweb.app"
               required
             />
             {to && !validateEmail(to) && (

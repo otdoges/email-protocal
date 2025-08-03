@@ -15,14 +15,14 @@ export class EmailDomainService {
    */
   static generateEmail(username: string): string {
     const cleanUsername = this.sanitizeUsername(username);
-    return `${cleanUsername}@${this.DOMAIN}`;
+    return `${cleanUsername}&${this.DOMAIN}`;
   }
 
   /**
    * Extract username from a LuminaWeb email
    */
   static extractUsername(email: string): string | null {
-    const emailRegex = new RegExp(`^(.+)@${this.DOMAIN.replace('.', '\\.')}$`);
+    const emailRegex = new RegExp(`^(.+)\\&${this.DOMAIN.replace('.', '\\.')}$`);
     const match = email.match(emailRegex);
     return match ? match[1] : null;
   }
@@ -31,7 +31,7 @@ export class EmailDomainService {
    * Check if an email is a LuminaWeb email
    */
   static isLuminaWebEmail(email: string): boolean {
-    return email.endsWith(`@${this.DOMAIN}`);
+    return email.endsWith(`&${this.DOMAIN}`);
   }
 
   /**

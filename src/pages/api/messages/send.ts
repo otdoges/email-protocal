@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { SecureStorage } from '../../../lib/storage';
 import { LuminaWebProtocol } from '../../../lib/protocol';
 import { SecurityUtils } from '../../../lib/security';
+import { emailService } from '../../../lib/email-service';
+import { EmailDomainService } from '../../../lib/email-domain';
 import { 
   withAuth,
   withSecurity, 
@@ -59,6 +61,16 @@ async function sendMessageHandler(req: AuthenticatedRequest, res: NextApiRespons
     };
 
     const messageId = await SecureStorage.storeMessage(fromEmail, to, messagePayload);
+
+    // Send email notification for LuminaWeb addresses
+    if (EmailDomainService.isLuminaWebEmail(to)) {
+      try {
+        await emailService.sendNewMessageNotification(to, fromEmail, messagePayload.subject);
+      } catch (emailError) {
+        // Don't fail message sending if email notification fails
+        console.warn('Failed to send email notification:', emailError);
+      }
+    }
 
     res.status(201).json({
       success: true,

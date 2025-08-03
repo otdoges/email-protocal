@@ -2,6 +2,8 @@ import * as jwt from 'jsonwebtoken';
 import { SecureCrypto } from './crypto';
 import { SecurityUtils } from './security';
 import { SecureStorage } from './storage';
+import { emailService } from './email-service';
+import { EmailDomainService } from './email-domain';
 
 export interface JWTPayload {
   userId: string;
@@ -75,6 +77,17 @@ export class AuthService {
         createdAt: Date.now(),
         expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000 // 7 days
       });
+
+      // Send welcome email for LuminaWeb addresses
+      if (EmailDomainService.isLuminaWebEmail(email)) {
+        try {
+          const username = EmailDomainService.extractUsername(email) || email.split('$')[0];
+          await emailService.sendWelcomeEmail(email, username);
+        } catch (emailError) {
+          // Don't fail registration if email sending fails
+          console.warn('Failed to send welcome email:', emailError);
+        }
+      }
 
       return {
         success: true,

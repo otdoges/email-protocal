@@ -38,7 +38,8 @@ cp .env.example .env.local
 Edit `.env.local` and set:
 - `BETTER_AUTH_SECRET`: 256-bit random key for better-auth
 - `ENCRYPTION_KEY`: 32-byte hex key for storage encryption
-- `DATABASE_URL`: Your database connection string
+- `CONVEX_DEPLOYMENT`: Your Convex deployment name
+- `NEXT_PUBLIC_CONVEX_URL`: Your Convex deployment URL
 - `BETTER_AUTH_URL`: Your application URL (http://localhost:3000 for development)
 
 ### 3. Development
@@ -78,8 +79,10 @@ npm start
    ```bash
    vercel env add BETTER_AUTH_SECRET
    vercel env add ENCRYPTION_KEY
-   vercel env add DATABASE_URL
+   vercel env add CONVEX_DEPLOYMENT
+   vercel env add NEXT_PUBLIC_CONVEX_URL
    vercel env add LUMINAWEB_DOMAIN
+   vercel env add SENDGRID_API_KEY
    ```
 
 ### Environment Variables (Vercel)
@@ -88,11 +91,13 @@ Set these in your Vercel project settings:
 
 - `BETTER_AUTH_SECRET`: Your better-auth signing key (256-bit)
 - `ENCRYPTION_KEY`: Storage encryption key (32-byte hex)  
-- `DATABASE_URL`: Your database connection string
+- `CONVEX_DEPLOYMENT`: Your Convex deployment name
+- `NEXT_PUBLIC_CONVEX_URL`: Your Convex deployment URL
 - `BETTER_AUTH_URL`: Your deployed URL (https://luminaweb.app)
 - `NEXT_PUBLIC_API_URL`: Your deployed URL (https://luminaweb.app)
 - `NEXT_PUBLIC_APP_URL`: Your deployed URL (https://luminaweb.app)
 - `LUMINAWEB_DOMAIN`: Domain for user emails (luminaweb.app)
+- `SENDGRID_API_KEY`: Optional email service API key
 
 ## Protocol Specification
 
@@ -215,7 +220,7 @@ MIT License - see LICENSE file
 
 ## Security Disclosure
 
-Report security vulnerabilities to: security@luminaweb.app
+Report security vulnerabilities to: security&luminaweb.app
 
 ## Roadmap
 

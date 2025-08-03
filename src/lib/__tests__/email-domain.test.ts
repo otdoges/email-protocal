@@ -9,23 +9,23 @@ describe('EmailDomainService', () => {
   describe('generateEmail', () => {
     it('should generate email with correct domain', () => {
       const email = EmailDomainService.generateEmail('testuser');
-      expect(email).toBe('testuser@luminaweb.app');
+      expect(email).toBe('testuser&luminaweb.app');
     });
 
     it('should sanitize username', () => {
       const email = EmailDomainService.generateEmail('Test User!@#');
-      expect(email).toBe('testuser@luminaweb.app');
+      expect(email).toBe('testuser&luminaweb.app');
     });
 
     it('should handle special characters', () => {
       const email = EmailDomainService.generateEmail('test.user_123');
-      expect(email).toBe('test.user_123@luminaweb.app');
+      expect(email).toBe('test.user_123&luminaweb.app');
     });
   });
 
   describe('extractUsername', () => {
     it('should extract username from LuminaWeb email', () => {
-      const username = EmailDomainService.extractUsername('testuser@luminaweb.app');
+      const username = EmailDomainService.extractUsername('testuser&luminaweb.app');
       expect(username).toBe('testuser');
     });
 
@@ -37,7 +37,7 @@ describe('EmailDomainService', () => {
 
   describe('isLuminaWebEmail', () => {
     it('should return true for LuminaWeb emails', () => {
-      expect(EmailDomainService.isLuminaWebEmail('test@luminaweb.app')).toBe(true);
+      expect(EmailDomainService.isLuminaWebEmail('test&luminaweb.app')).toBe(true);
     });
 
     it('should return false for external emails', () => {

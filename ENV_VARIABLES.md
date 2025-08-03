@@ -7,8 +7,9 @@ This file documents all the environment variables needed for LuminaWeb Protocol.
 Create a `.env.local` file in the root directory with these variables:
 
 ```bash
-# Database Configuration
-DATABASE_URL="your-database-connection-string"
+# Convex Database Configuration
+CONVEX_DEPLOYMENT="your-convex-deployment-name"
+NEXT_PUBLIC_CONVEX_URL="https://your-convex-deployment.convex.cloud"
 
 # Authentication (Better Auth)
 BETTER_AUTH_SECRET="your-256-bit-better-auth-secret-key"
@@ -40,12 +41,15 @@ NODE_ENV="development"
 - **Format**: 32-byte hex string (64 hex characters)
 - **Example**: Generate with `openssl rand -hex 32`
 
-### `DATABASE_URL`
-- **Purpose**: Database connection string
-- **Format**: Database-specific connection string
-- **Examples**: 
-  - PostgreSQL: `postgresql://user:password@localhost:5432/luminaweb`
-  - SQLite: `file:./luminaweb.db`
+### `CONVEX_DEPLOYMENT`
+- **Purpose**: Convex deployment name
+- **Format**: String identifier for your Convex deployment
+- **Example**: `luminaweb-production-123`
+
+### `NEXT_PUBLIC_CONVEX_URL`
+- **Purpose**: Public URL for Convex client connection
+- **Format**: `https://deployment-name.convex.cloud`
+- **Example**: `https://luminaweb-production-123.convex.cloud`
 
 ### `BETTER_AUTH_URL`
 - **Purpose**: Base URL for better-auth
@@ -62,13 +66,23 @@ NODE_ENV="development"
 - **Development**: `luminaweb.app`
 - **Production**: `luminaweb.app`
 
+### `SENDGRID_API_KEY` (Optional)
+- **Purpose**: API key for SendGrid email service
+- **Development**: Leave empty to use console logging
+- **Production**: Your SendGrid API key for sending actual emails
+
+### `EMAIL_FROM_NAME` (Optional)
+- **Purpose**: Display name for outgoing emails
+- **Default**: `LuminaWeb`
+
 ## Quick Setup
 
 ### Development Template
 Create `.env.local` with these values for development:
 ```bash
-# Database Configuration
-DATABASE_URL="file:./luminaweb.db"
+# Convex Database Configuration
+CONVEX_DEPLOYMENT="your-dev-deployment-name"
+NEXT_PUBLIC_CONVEX_URL="https://your-dev-deployment.convex.cloud"
 
 # Authentication (Better Auth)
 BETTER_AUTH_SECRET="your-256-bit-better-auth-secret-key"
@@ -90,8 +104,9 @@ NODE_ENV="development"
 
 ### Production Template (for luminaweb.app)
 ```bash
-# Database Configuration
-DATABASE_URL="your-production-database-connection-string"
+# Convex Database Configuration
+CONVEX_DEPLOYMENT="luminaweb-production"
+NEXT_PUBLIC_CONVEX_URL="https://luminaweb-production.convex.cloud"
 
 # Authentication (Better Auth)
 BETTER_AUTH_SECRET="your-256-bit-better-auth-secret-key"
@@ -125,11 +140,13 @@ openssl rand -hex 32
 For Vercel deployment, set these environment variables in your project settings:
 - `BETTER_AUTH_SECRET`
 - `ENCRYPTION_KEY`
-- `DATABASE_URL`
+- `CONVEX_DEPLOYMENT`
+- `NEXT_PUBLIC_CONVEX_URL`
 - `BETTER_AUTH_URL`
 - `NEXT_PUBLIC_API_URL`
 - `NEXT_PUBLIC_APP_URL`
 - `LUMINAWEB_DOMAIN`
+- `SENDGRID_API_KEY` (optional)
 
 ## Security Notes
 
